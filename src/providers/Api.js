@@ -1,7 +1,7 @@
 
 class Api {
 
-  static url = "http://dev.localhost/upload/public/"
+  static url = "http://dev.localhost/upload-lumen/public/"
 
   static http(url,params){
     return fetch(url,params).then(res => res.json())

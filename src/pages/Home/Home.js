@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import './Home.css';
 /* PROVIDERS */
 import Api from '../../providers/Api'
@@ -76,13 +77,13 @@ class Home extends Component {
         {/*<div className="container container-second">hello</div>*/}
 
         <ModalUpload
-          files={this.state.filesSelected}
-          show={this.state.showModalUpload}
-          uploading={this.state.uploadState}
-          handleShow={this.showModalUpload}
-          handleHide={this.hideModalUpload}
-          startUpload={this.inputSubmit}
-          filesLinks={this.state.filesLinks}
+          files         = {this.state.filesSelected}
+          show          = {this.state.showModalUpload}
+          uploading     = {this.state.uploadState}
+          handleShow    = {this.showModalUpload}
+          handleHide    = {this.hideModalUpload}
+          startUpload   = {this.inputSubmit}
+          filesLinks    = {this.state.filesLinks}
         />
 
 
@@ -94,4 +95,5 @@ class Home extends Component {
   }
 }
 
-export default Home;
+const mapStateToProps = (state) => ({user: state})
+export default connect(mapStateToProps)(Home);

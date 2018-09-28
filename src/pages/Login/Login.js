@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router'
+import { connect } from 'react-redux'
 
 import './Login.css'
 /* PROVIDERS */
@@ -28,9 +29,18 @@ class Login extends Component {
     console.log(this.state)
     Api.authenticate(this.state.loginInput,this.state.passwordInput).then( res => {
       console.log(res)
-      localStorage.setItem('token',res.token)
-      localStorage.setItem('email',res.email)
-      localStorage.setItem('name',res.name)
+      let user = {
+        token: res.token,
+        email: res.email,
+        name: res.name
+      }
+
+      this.props.dispatch({
+        type: 'LOGIN_USER',
+        data: user,
+      })
+
+      localStorage.setItem('user',JSON.stringify(user))
       this.setState({redirect: true})
     })
   }
@@ -40,18 +50,15 @@ class Login extends Component {
 
   /* RENDER */
   render() {
-    if (localStorage.getItem('email')!= null) {return <Redirect to="/my-account" push={true} />}
+    // if (localStorage.getItem('email')!= null) {return <Redirect to="/my-account" push={true} />}
     if (this.state.redirect) {return <Redirect to="/" push={true} />}
 
     return (
 
       <div className="LoginPage">
         <div className="container">
-
             <div className="col-md-6 col-md-offset-3 col-xs-12">
-
               <div className="panel panel-default login-container">
-
                 <div className="panel-body">
                   <h3 className="text-center">Connexion</h3>
                   <form>
@@ -65,14 +72,14 @@ class Login extends Component {
                   </form>
                 </div>
               </div>
-
-
             </div>
-
         </div>
       </div>
     );
   }
+
+
 }
 
-export default Login;
+const mapStateToProps = (state) => ({user: state.user})
+export default connect(mapStateToProps)(Login);

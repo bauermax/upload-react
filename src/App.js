@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { Switch, Route } from 'react-router-dom'
+import { connect } from 'react-redux'
+
 
 
 /* COMPONENTS */
@@ -12,6 +14,9 @@ import Account from './pages/Account/Account'
 import './App.css'
 
 class App extends Component {
+
+
+
   render() {
     return (
       <div className="App">
@@ -25,5 +30,7 @@ class App extends Component {
     );
   }
 }
-
+const mapStateToProps = (state, ownProps) => {
+  return {...ownProps}
+}
 export default App;

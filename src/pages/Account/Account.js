@@ -17,11 +17,11 @@ class Login extends Component {
   }
 
   componentDidMount() {
-    let email = localStorage.getItem('email')
-    this.setState({
-        email: email,
-        files: Api.getFilesForUser(email)
-    })
+    // let email = localStorage.getItem('email')
+    // this.setState({
+    //     email: email,
+    //     files: Api.getFilesForUser(email)
+    // })
   }
   /*  JOB FUNCTIONS */
 

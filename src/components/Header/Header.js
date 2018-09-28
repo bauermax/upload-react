@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 
+import { connect } from 'react-redux'
+
 
 import './Header.css';
 
 class Header extends Component {
 
-  state = {
-    authenticated: localStorage.getItem('email')
-  }
+
 
   render() {
-
+    //console.log(this.props)
     return (
+
       <div className="Header">
 
         <nav className="navbar navbar-default navbar-fixed-top">
@@ -21,8 +22,8 @@ class Header extends Component {
               <Link className="navbar-brand" to='/'>EasyUpload</Link>
             </div>
             <ul className="nav navbar-nav navbar-right">
-              { ! this.state.authenticated && <li><Link to='/login'>Login</Link></li>}
-              { this.state.authenticated && <li><Link to='/my-account'>{localStorage.getItem('name')}</Link></li>}
+              { !this.props.user && <li><Link to='/login'>Login</Link></li>}
+              { this.props.user && <li><Link to='/my-account'>{this.props.user.name}</Link></li>}
             </ul>
           </div>
         </nav>
@@ -32,4 +33,5 @@ class Header extends Component {
   }
 }
 
-export default Header;
+const mapStateToProps = (state) => ({user: state.user})
+export default connect(mapStateToProps)(Header);
