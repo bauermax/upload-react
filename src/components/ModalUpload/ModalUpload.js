@@ -15,24 +15,31 @@ const ModalUpload = ({ files, filesLinks, handleShow, handleHide, show, startUpl
   <div>
 
     <Modal className="ModalUpload" show={show} onHide={handleHide}>
-      <Modal.Header closeButton></Modal.Header>
+
       <Modal.Body>
 
         <div className="modal-fixed-height">
 
           { /* DEFAULT */ }
           {uploading === 0 && <div>
-            <h4>You are about to upload <b>({files.length})</b> file(s) ({files[0] && humanFileSize(files[0].size)})</h4>
-            <span className="btn btn-upload" onClick={startUpload}>YES PLEASE !</span>
+            <div className="modal-padding modal-step-1">
+              <h4>You are about to upload <b>({files.length})</b> file(s) ({files[0] && humanFileSize(files[0].size)})</h4>
+              <span className="btn btn-upload" onClick={startUpload}>GO !</span>
+            </div>
           </div>}
           { /* UPLOADING */ }
           {uploading === 1 && <div>
-            <center><img className="loader" src="https://i.pinimg.com/originals/58/4b/60/584b607f5c2ff075429dc0e7b8d142ef.gif" alt="wait..." /></center>
+            <div className="uploading-spaceship">
+              <p>Please wait while we are sending your files to the server</p>
+            </div>
+            {/*<center><img className="loader" src="https://i.pinimg.com/originals/58/4b/60/584b607f5c2ff075429dc0e7b8d142ef.gif" alt="wait..." /></center>*/}
           </div>}
           { /* FINISHED */ }
           {uploading === 2 && <div>
-              <h4>Upload success ! Here is your file(s) link(s) :</h4>
-              <p><a target="blank" href={filesLinks}>{filesLinks}</a></p>
+            <div className="modal-padding modal-step-3">
+              <h4>Upload success ! Here are your links :</h4>
+              <a className="box-upload-link" target="blank" href={filesLinks}>{filesLinks}</a>
+            </div>
           </div>}
 
         </div>

@@ -55,10 +55,10 @@ class Home extends Component {
             <div className="row">
               <div className="col-md-6 col-xs-12">
                 <div className="presentation-container">
-                  <h1 className="main-title">Simply share your files</h1>
+                  <h1 className="main-title">Share your files</h1>
 
                   <p className="main-description">
-                    EasyUpload is a service to allow you to share your personal files with people all around the world for free !
+                    EasyUpload is a service to allow you to share your files with people all around the world for free !
                   </p>
 
                     <br />

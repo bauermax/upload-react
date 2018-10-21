@@ -20,6 +20,8 @@ const store = createStore(userReducer,window.__REDUX_DEVTOOLS_EXTENSION__ && win
 /* INIT USER */
 let user =  JSON.parse(localStorage.getItem('user'));
 store.dispatch({type:"LOGIN_USER",data:user})
+
+console.log(store.getState())
 /*    */
 
 ReactDOM.render(

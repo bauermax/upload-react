@@ -21,16 +21,14 @@ class App extends Component {
     return (
       <div className="App">
         <Header />
-          <Switch>
-            <Route exact path='/' component={Home}/>
-            <Route exact path='/login' component={Login}/>
-            <Route exact path='/my-account' component={Account}/>
-          </Switch>
+        <Switch>
+          <Route exact path='/' component={Home}/>
+          <Route exact path='/login' component={Login}/>
+          <Route exact path='/my-account' component={Account}/>
+        </Switch>
       </div>
     );
   }
 }
-const mapStateToProps = (state, ownProps) => {
-  return {...ownProps}
-}
+
 export default App;

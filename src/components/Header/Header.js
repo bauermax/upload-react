@@ -22,7 +22,7 @@ class Header extends Component {
               <Link className="navbar-brand" to='/'>EasyUpload</Link>
             </div>
             <ul className="nav navbar-nav navbar-right">
-              { !this.props.user && <li><Link to='/login'>Login</Link></li>}
+              { !this.props.user && <li><Link to='/login'>Login / Register</Link></li>}
               { this.props.user && <li><Link to='/my-account'>{this.props.user.name}</Link></li>}
             </ul>
           </div>

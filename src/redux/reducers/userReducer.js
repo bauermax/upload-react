@@ -1,7 +1,12 @@
+import { omit } from 'lodash'
+
+
 const userReducer = (state = [], action) => {
   switch(action.type) {
     case 'LOGIN_USER':
       return {...state,user:action.data}
+      case 'LOGOUT_USER':
+        return {}
 
 
       /*

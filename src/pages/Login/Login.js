@@ -14,34 +14,38 @@ class Login extends Component {
   state = {
     redirect: false,
     loginInput: "",
-    passwordInput: ""
+    passwordInput: "",
+    errorMessage: false
   }
   /*  JOB FUNCTIONS */
   handleChangeLogin = event => {
     this.setState({loginInput: event.target.value})
   }
   handleChangePassword = event => {
-
     this.setState({passwordInput: event.target.value})
   }
+
   submitLoginForm = (event) => {
     event.preventDefault()
-    console.log(this.state)
+
     Api.authenticate(this.state.loginInput,this.state.passwordInput).then( res => {
       console.log(res)
+      if(!res.token || !res.email){this.setState({errorMessage:true});return;}
       let user = {
         token: res.token,
         email: res.email,
         name: res.name
       }
 
+      localStorage.setItem('user',JSON.stringify(user))
+
+
       this.props.dispatch({
         type: 'LOGIN_USER',
         data: user,
       })
 
-      localStorage.setItem('user',JSON.stringify(user))
-      this.setState({redirect: true})
+
     })
   }
 
@@ -51,7 +55,8 @@ class Login extends Component {
   /* RENDER */
   render() {
     // if (localStorage.getItem('email')!= null) {return <Redirect to="/my-account" push={true} />}
-    if (this.state.redirect) {return <Redirect to="/" push={true} />}
+    if (this.props.loginSuccess) {return <Redirect to="/my-account" push={true} />}
+    if (this.props.user) {return <Redirect to="/" push={true} />}
 
     return (
 
@@ -60,7 +65,7 @@ class Login extends Component {
             <div className="col-md-6 col-md-offset-3 col-xs-12">
               <div className="panel panel-default login-container">
                 <div className="panel-body">
-                  <h3 className="text-center">Connexion</h3>
+                  <h3 className="text-center">Login</h3>
                   <form>
                     <label>Login</label>
                     <input required onChange={this.handleChangeLogin} className="form-control" type="email" placeholder="your email here..." />
@@ -69,6 +74,8 @@ class Login extends Component {
                     <input required onChange={this.handleChangePassword} className="form-control" type="password" placeholder="your password here..." />
                     <br />
                     <button onClick={this.submitLoginForm} className="btn btn-primary form-control">LOGIN</button>
+                    {this.state.errorMessage && <h6 className="text-danger text-center">Error - wrong mail or password</h6>}
+
                   </form>
                 </div>
               </div>
@@ -81,5 +88,7 @@ class Login extends Component {
 
 }
 
-const mapStateToProps = (state) => ({user: state.user})
+const mapStateToProps = (state,ownProperties) => (
+  {...ownProperties,user: state.user}
+)
 export default connect(mapStateToProps)(Login);
